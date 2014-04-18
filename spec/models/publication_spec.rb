@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Publication do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a valid factory" do
+    expect(FactoryGirl.build(:publication)).to be_valid
+  end
+
+  it "is valid with a title, slug, and at least one user"
 end
