@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Publication do
   it "has a valid factory" do
-    expect(FactoryGirl.build(:publication)).to be_valid
+    expect(build(:publication)).to be_valid
   end
 
-  it "is valid with a title, slug, and at least one user"
+  it "is valid with a title, slug, and at least one user" do
+    expect(build(:publication, users: nil)).not_to be_valid
+  end
 end
