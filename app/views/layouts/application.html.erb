@@ -25,12 +25,6 @@
             <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
             <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">For Publishers<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'New Publication', '#' %></li>
-            </ul>
-            </li>
-            <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %><b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><%= link_to 'Submissions', '#' %></li>
