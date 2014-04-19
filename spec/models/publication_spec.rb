@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe Publication do
   it "has a valid factory" do
     expect(build(:publication)).to be_valid
