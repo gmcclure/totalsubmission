@@ -1,8 +1,11 @@
+require 'faker'
+
+
 FactoryGirl.define do
   factory :publication do
-    title "MyString"
-    description "MyText"
-    slug "MyString"
-    users { Array.new(1, create(:user)) }
+    title Faker::Company.name
+    description Faker::Company.catch_phrase
+    slug Faker::Internet.slug
+    user { create(:user) }
   end
 end

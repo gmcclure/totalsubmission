@@ -7,6 +7,7 @@ describe Publication do
   end
 
   it "is valid with a title, slug, and at least one user" do
-    expect(build(:publication, users: nil)).not_to be_valid
+    expect(build(:publication, user: nil)).not_to be_valid
+    expect(build(:publication)).to be_valid
   end
 end
