@@ -1,33 +1,62 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#profile-tab" data-toggle="tab">Your Profile</a></li>
+    <li><a href="#publications-tab" data-toggle="tab">Manage Publications</a></li>
+    <li><a href="#account-tab" data-toggle="tab">Account</a></li>
+  </ul>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="tab-content">
+    <div class="tab-pane active" id="profile-tab">
+    <h2>Your Profile</h2>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form' }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <div class="form-group"><%= f.label :email %><br />
+      <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div class="form-group">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+      <div class="form-group"><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, :autocomplete => "off" %></div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %></div>
+      <div class="form-group"><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
+      <div class="form-group"><%= f.label :current_password %> <i>(we need current password to confirm changes)</i><br />
+      <%= f.password_field :current_password %></div>
 
-<h3>Cancel my account</h3>
+      <div><%= f.submit "Update Profile" %></div>
+    <% end %>
+    </div>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+    <div class="tab-pane" id="publications-tab">
+    <% if current_user.publications.length > 0 %>
+    <h3>Manage Publications</h3>
+    <ul>
+    <% current_user.publications.each do |pub| %>
+      <li><%= link_to pub.title, edit_publication_path(pub.id) %> | <%= link_to 'Submissions', publication_submissions_path(pub.id) %></li>
+    <% end %>
+    </ul>
+    <% end %>
+    </div>
 
-<%= link_to "Back", :back %>
+    <div class="tab-pane" id="account-tab">
+    <h3>Cancel Account</h3>
 
-<h3>Start a New Publication</h3>
+    <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 
-<button>New Publication</button>
+    <%= link_to "Back", :back %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    if (location.hash === '#publications-tab') {
+      $('[href=' + '#publications-tab' + ']').tab('show');
+    }
+  });
+</script>
