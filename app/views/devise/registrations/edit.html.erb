@@ -60,7 +60,7 @@
 
     <% if current_user.publications.length > 0 %>
     <div class="tab-pane" id="publications-tab">
-      <h3>Manage Publications</h3>
+      <h3>Publication Management</h3>
       <ul>
       <% current_user.publications.each do |pub| %>
         <li><%= link_to pub.title, edit_publication_path(pub.id) %> | <%= link_to 'Submissions', publication_submissions_path(pub.id) %></li>
